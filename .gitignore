@@ -1,0 +1,8 @@
+# JetBrains WebStorm
+.idea/
+
+# Vagrant
+.vagrant/
+
+# Berkshelf
+Berksfile.lock
