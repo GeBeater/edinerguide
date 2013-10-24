@@ -30,6 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.add_recipe "nodejs::install_from_binary"
     chef.add_recipe "nodejs::npm"
+    chef.add_recipe "phantomjs"
 
     # You may also specify custom JSON attributes:
     chef.json = {
