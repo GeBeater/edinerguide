@@ -54,8 +54,8 @@ module.exports = function (grunt) {
         connect: {
             options: {
                 port: 9000,
-                // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                // change this to 'localhost' to disallow access the server from outside
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
@@ -303,7 +303,7 @@ module.exports = function (grunt) {
             'concurrent:server',
             'neuter:app',
             'connect:livereload',
-            'open',
+            //'open',
             'watch'
         ]);
     });
