@@ -6,3 +6,11 @@
 
 # Berkshelf
 Berksfile.lock
+
+# Created via Yeoman
+node_modules
+temp
+dist
+.sass-cache
+.tmp
+app/bower_components

@@ -1,0 +1,3 @@
+Vagrant.Router.map(function () {
+  
+});
