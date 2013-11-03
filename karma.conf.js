@@ -1,3 +1,6 @@
+//
+// https://github.com/yeoman/generator-ember/blob/master/app/templates/karma.conf.js
+
 module.exports = function(karma) {
     karma.set({
         basePath: '',
@@ -8,14 +11,12 @@ module.exports = function(karma) {
           "app/bower_components/ember/ember.js",
           "app/bower_components/ember-data-shim/ember-data.js",
           "app/bower_components/jquery-mockjax/jquery.mockjax.js",
-          //"app/scripts/app.js",
           ".tmp/scripts/combined-scripts.js",
           ".tmp/scripts/compiled-templates.js",
           "tests/**/*.js"
-          //"app/templates/*.hbs"
         ],
 
-        logLevel: karma.LOG_ERROR,
+        logLevel: karma.LOG_INFO,
         browsers: ['PhantomJS'],
         singleRun: true,
         autoWatch: false,

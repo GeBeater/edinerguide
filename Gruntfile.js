@@ -38,12 +38,13 @@ module.exports = function (grunt) {
 
     // tasks must be defined inside the initConfig method
     grunt.initConfig({
+        yeoman: yeomanConfig,
         karma: {
+            // continuous integration mode due to run tests once (singlerun) in PhantomJS browser (see configFile)
             unit: {
                 configFile: 'karma.conf.js'
             }
         },
-        yeoman: yeomanConfig,
         watch: {
             emberTemplates: {
                 files: '<%= yeoman.app %>/templates/**/*.hbs',
