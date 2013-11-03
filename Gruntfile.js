@@ -136,14 +136,6 @@ module.exports = function (grunt) {
                 'test/spec/{,*/}*.js'
             ]
         },
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
-                }
-            }
-        },
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
@@ -332,7 +324,7 @@ module.exports = function (grunt) {
         'concurrent:test',
         'connect:test',
         'neuter:app',
-        'mocha'
+        'karma'
     ]);
 
     grunt.registerTask('build', [

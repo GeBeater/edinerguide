@@ -1,6 +1,6 @@
 //
 // https://github.com/yeoman/generator-ember/blob/master/app/templates/karma.conf.js
-
+//
 module.exports = function(karma) {
     karma.set({
         basePath: '',
@@ -13,7 +13,7 @@ module.exports = function(karma) {
           "app/bower_components/jquery-mockjax/jquery.mockjax.js",
           ".tmp/scripts/combined-scripts.js",
           ".tmp/scripts/compiled-templates.js",
-          "tests/**/*.js"
+          "test/**/*.js"
         ],
 
         logLevel: karma.LOG_INFO,
@@ -25,13 +25,7 @@ module.exports = function(karma) {
 
         plugins: [
             'karma-qunit',
-            'karma-chrome-launcher',
-            'karma-ember-preprocessor',
             'karma-phantomjs-launcher'
-        ],
-
-        preprocessors: {
-            "**/*.handlebars": 'ember'
-        }
+        ]
     });
 };
