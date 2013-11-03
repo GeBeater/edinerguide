@@ -1,5 +1,5 @@
 {
-  "name": "vagrant",
+  "name": "eDinerGuide",
   "version": "0.0.0",
   "dependencies": {
     "ember": "1.0.0",

@@ -1,2 +1,2 @@
-Vagrant.Store = DS.Store.extend();
-Vagrant.ApplicationAdapter = DS.FixtureAdapter;
+App.Store = DS.Store.extend();
+App.ApplicationAdapter = DS.FixtureAdapter;
