@@ -6,16 +6,28 @@ var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
+// see http://gruntjs.com/getting-started , https://github.com/gruntjs/grunt/wiki/Getting-started
+// Grunt 0.4.x requires stable Node.js versions >= 0.8.0.
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 
+//
+// see http://gruntjs.com/api/grunt
+// Grunt exposes all of its methods and properties on the grunt object that gets passed into the module.exports function
+// The "wrapper" function
+// Every Gruntfile (and gruntplugin) uses this basic format, and all of your Grunt code must be specified inside this function:
+// https://github.com/gruntjs/grunt/wiki/Getting-started
+//
 module.exports = function (grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
-    // load all grunt tasks
+
+    // load all grunt tasks instead of calling "grunt.loadNpmTasks" multiple times (for each task)
+    // see https://github.com/sindresorhus/load-grunt-tasks
     require('load-grunt-tasks')(grunt);
 
     // configurable paths
@@ -24,7 +36,13 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
 
+    // tasks must be defined inside the initConfig method
     grunt.initConfig({
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        },
         yeoman: yeomanConfig,
         watch: {
             emberTemplates: {
