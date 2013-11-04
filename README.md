@@ -3,6 +3,8 @@ edinerguide
 
 A web based decision aid to find a restaurant close by a given location.
 
+[CODESHIP](https://www.codeship.io/projects/ea774840-2784-0131-e141-3a7953958826/status)
+
 ## Contribution
 
 In order to ease the life of developers and prevent that the local machine looks like a rubbish
