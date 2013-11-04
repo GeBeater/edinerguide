@@ -1,1 +1,0 @@
-!function(){window.App=Ember.Application.create()}(),function(){App.Store=DS.Store.extend(),App.ApplicationAdapter=DS.FixtureAdapter}(),function(){App.ApplicationRoute=Ember.Route.extend({model:function(){return["red","yellow","blue","orange"]}})}(),function(){App.Router.map(function(){})}();
