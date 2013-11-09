@@ -28,11 +28,13 @@ git clone $GH_REPO_URI ${ENTIRE_REPO_PATH}
 cd ${ENTIRE_REPO_PATH}
 git checkout -qf gh-pages
 git rm -rf ${ENTIRE_REPO_PATH}/*
-touch CNAME
-echo "edinerguide.de" > CNAME
-cp -rf ${BUILD_PATH}/* ${ENTIRE_REPO_PATH}
+touch ${ENTIRE_REPO_PATH}/CNAME
+touch ${ENTIRE_REPO_PATH}/VERSION
+echo "edinerguide.de" > ${ENTIRE_REPO_PATH}/CNAME
+echo ${RELEASE_VERSION} > ${ENTIRE_REPO_PATH}/VERSION
+cp -rf ${BUILD_PATH}/* ${ENTIRE_REPO_PATH}/
 git add .
-git commit -a -m "[CI] deploy ${RELEASE_VERSION} via $CI_NAME --skip-ci"
+git commit -a -m "[CI] deploy ${RELEASE_VERSION} via $CI_NAME --skip-ci" --allow-empty
 git push origin gh-pages --force
 ##
 ## update master branch (master have to represent the deployed code base (next branch))
