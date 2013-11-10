@@ -320,10 +320,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-        'clean:server',
-        'concurrent:test',
-        'connect:test',
-        'neuter:app',
+        //'clean:server',
+        //'concurrent:test',
+        //'connect:test',
+        //'neuter:app',
         'karma'
     ]);
 
