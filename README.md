@@ -62,7 +62,8 @@ generator for ember Version 0.7.1 [generator-ember](https://github.com/yeoman/ge
 
 
 
-## Miscellaneous remarks
+## Miscellaneou remarks
 
 [Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+[Markdown-Task Lists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments)
 
