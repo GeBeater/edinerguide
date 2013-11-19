@@ -12,8 +12,8 @@
 ini_set('display_errors', 1);
 error_reporting(-1);
 
-define('FOURSQUARE_API_CLIENT_ID', 'ISKII1C3BUIIXVT1QSC1RE10K4JXPI2M2WBSIWIZRW5VQ0PE');
-define('FOURSQUARE_API_CLIENT_SECRET', '2G4JUM4EZJLVGSE5NBLNGZWMTLTWFERMF1ABZ2VAZP0PFH2U');
+define('FOURSQUARE_API_CLIENT_ID', '');
+define('FOURSQUARE_API_CLIENT_SECRET', '');
 define('FOURSQUARE_API_VERSION', '20131119'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_LANGUAGE', 'de'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_BASE_URI', 'https://api.foursquare.com/v2');
