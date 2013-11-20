@@ -6,8 +6,11 @@
  * application without make the client secret public.
  *
  * Exemplary calls:
- * http://api.edinerguide.de/foursquare?ll=40.7,-74&query=sushi
- * http://api.edinerguide.de/foursquare?near=Hamburg&query=restaurant&limit=10&intent=match
+ * http://api.edinerguide.de/foursquare?ll=40.7,-74&query=sushi // for search endpoint
+ * http://api.edinerguide.de/foursquare?near=Hamburg&query=restaurant&limit=10&intent=match // for search endpoint
+ *
+ * http://api.edinerguide.de/foursquare?near=Hamburg&section=food&radius=500&limit=10 // for explore endpoint
+ *
  */
 ini_set('display_errors', 1);
 error_reporting(-1);
@@ -17,7 +20,8 @@ define('FOURSQUARE_API_CLIENT_SECRET', '');
 define('FOURSQUARE_API_VERSION', '20131119'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_LANGUAGE', 'de'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_BASE_URI', 'https://api.foursquare.com/v2');
-define('FOURSQUARE_API_SEARCH_ENDPOINT', '/venues/search'); // https://developer.foursquare.com/overview/venues
+// define('FOURSQUARE_API_SEARCH_ENDPOINT', '/venues/search'); // https://developer.foursquare.com/overview/venues
+define('FOURSQUARE_API_EXPLORE_ENDPOINT', '/venues/explore'); // https://developer.foursquare.com/docs/venues/explore
 
 $headers = array(
     'Accept: application/json',
@@ -34,7 +38,7 @@ if(true === isset($_GET) && false === empty($_GET)) {
     $parameters = array_merge($parameters, $_GET);
 }
 
-$uri = FOURSQUARE_API_BASE_URI . FOURSQUARE_API_SEARCH_ENDPOINT . '?' . http_build_query($parameters);
+$uri = FOURSQUARE_API_BASE_URI . FOURSQUARE_API_EXPLORE_ENDPOINT . '?' . http_build_query($parameters);
 
 $ch = curl_init();
 
