@@ -11,6 +11,7 @@ module.exports = function(karma) {
           "app/bower_components/ember/ember.js",
           "app/bower_components/ember-data-shim/ember-data.js",
           "app/bower_components/jquery-mockjax/jquery.mockjax.js",
+          "app/bower_components/amplify/lib/amplify.js",
           ".tmp/scripts/combined-scripts.js",
           ".tmp/scripts/compiled-templates.js",
           "test/**/*.js"
