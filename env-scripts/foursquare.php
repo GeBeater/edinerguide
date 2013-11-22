@@ -20,8 +20,12 @@ define('FOURSQUARE_API_CLIENT_SECRET', '');
 define('FOURSQUARE_API_VERSION', '20131119'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_LANGUAGE', 'de'); // https://developer.foursquare.com/overview/versioning
 define('FOURSQUARE_API_BASE_URI', 'https://api.foursquare.com/v2');
-// define('FOURSQUARE_API_SEARCH_ENDPOINT', '/venues/search'); // https://developer.foursquare.com/overview/venues
-define('FOURSQUARE_API_EXPLORE_ENDPOINT', '/venues/explore'); // https://developer.foursquare.com/docs/venues/explore
+
+// for exploration and / or get a venue by id
+// set $_GET['explore'] = 1 for exploration call
+// https://developer.foursquare.com/docs/venues/explore
+// https://developer.foursquare.com/docs/venues/venues
+define('FOURSQUARE_API_VENUES_ENDPOINT', '/venues');
 
 $headers = array(
     'Accept: application/json',
@@ -34,11 +38,22 @@ $parameters = array(
     'v' => FOURSQUARE_API_VERSION,
 );
 
-if(true === isset($_GET) && false === empty($_GET)) {
-    $parameters = array_merge($parameters, $_GET);
+// add additional query parameters for an exploration call
+if(true === isset($_GET) && false === empty($_GET) && true === isset($_GET['explore']) && 1 == $_GET['explore']) {
+    $getParameters = $_GET;
+    unset($getParameters['explore']);
+    $parameters = array_merge($parameters, $getParameters);
 }
 
-$uri = FOURSQUARE_API_BASE_URI . FOURSQUARE_API_EXPLORE_ENDPOINT . '?' . http_build_query($parameters);
+$uri = FOURSQUARE_API_BASE_URI . FOURSQUARE_API_VENUES_ENDPOINT;
+
+// based on given parameters use the explore endpoint or concrete venue resource endpoint
+if(true === isset($_GET['explore']) && 1 == $_GET['explore']) {
+    $uri .= '/explore';
+} elseif (true === isset($_GET['id']) && false === empty($_GET['id'])) {
+    $uri .= '/' . $_GET['id'];
+}
+$uri .= '?' . http_build_query($parameters);
 
 $ch = curl_init();
 
