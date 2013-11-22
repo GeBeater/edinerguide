@@ -1,3 +1,12 @@
-ich bin ein restaurant mit dem statischen namen: {{name}}
-
-restaurant: {{restaurant.name}}
+<h3>Restaurant</h3>
+<p>{{restaurant.categories.[0].name}}</p>
+<address>
+    <strong>{{restaurant.name}}</strong><br>
+    {{restaurant.location.address}}<br>
+    {{restaurant.location.postalCode}} {{restaurant.location.city}}<br>
+    {{restaurant.location.country}}<br>
+</address>
+<address>
+    <abbr title="Phone">P:</abbr> {{restaurant.contact.phone}}<br>
+    <abbr title="Website">W:</abbr> <a {{bindAttr href='restaurant.url'}} target="_blank">{{restaurant.url}}</a>
+</address>
