@@ -1,0 +1,11 @@
+<h2>Where are you?</h2>
+<p>Do not waste your time for decisions.</p>
+<form role="form" {{action 'sendAddress' location 'false' on='submit'}}>
+    <div class="form-group">
+        <label {{bindAttr for="view.locationTextField.elementId"}}>Location</label>
+        {{view Ember.TextField valueBinding="location" viewName="locationTextField" classNames="form-control" placeholder="Enter a city or zipcode"}}
+    </div>
+    <a {{action 'detectLocation'}} role="button" class="btn btn-default" disabled="disabled">use current location</a>
+    <button type="button" class="btn btn-default" disabled="disabled">reset</button>
+    <button type="submit" class="btn btn-default">submit</button>
+</form>
