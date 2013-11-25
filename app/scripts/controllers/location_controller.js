@@ -33,9 +33,6 @@ App.LocationController = Ember.Controller.extend({
 
         this.get('geocoder').geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                console.log("result: ", results);
-                console.log("results 0: ", results[0]);
-
                 controller.setLocation(results[0]);
                 controller.get('controllers.restaurant').send('receiveCoordinates', controller.get('latlng'));
             } else {
