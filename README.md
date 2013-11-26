@@ -88,6 +88,8 @@ Due to the following theses the business logic was placed in the classes shown b
 > To be able to do this we define our ...Controller to need the ...Controller
 [[emberjs.com - GUIDES - CONTROLLERS - MANAGING DEPENDENCIES BETWEEN CONTROLLERS](http://emberjs.com/guides/controllers/dependencies-between-controllers/)
 
+![](docs/diagrams/businesslogic800x500.png?raw=true)
+
 ## Continuous Integration and Deployment
 
 [Codeship](https://www.codeship.io/) is used for continuous integration and deployment which
