@@ -16,7 +16,7 @@ test('page contains a header container', function() {
 test('header will contain a headline', function() {
     visit("/").then(function() {
         var headline = 'Delegate your restaurant selection!';
-        equal(find(".tagline:contains(" + headline + ")").length, 1, "could not retrieve the headline: " + headline);
+        equal(find("#tagline:contains(" + headline + ")").length, 1, "could not retrieve the headline: " + headline);
     });
 });
 
