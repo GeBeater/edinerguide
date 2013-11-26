@@ -1,20 +1,39 @@
+/*!
+ * That is the place to customize the twitter bootstrap
+ *
+ * Custom "Sassy CSS" variables are placed in the variables.scss file.
+ *
+ * All variables which flagged with "!default" in
+ * bootstrap-sass/lib/_variables.scss will not overwritten.
+ *
+ * Valid variables can be found at the link see below.
+ * http://getbootstrap.com/customize/#less-variables
+ *
+ *
+ */
+@import "variables";
+
 @import "bootstrap-sass/lib/bootstrap";
 
 body {
-  margin-top: 50px; /* 50px is the height of the navbar - change this if the navbarn height changes */
+  margin-top: 50px;
 }
 
-/* change the URL to a picture of your choice - the higher quality the better! */
-.header {
+#header {
   height: 400px;
-  background: url(../images/background.png) center center no-repeat;
+  background: url(../images/background1920x400.png) center center no-repeat;
   background-size: cover;
 }
 
-/* adjust the color and text shadow to optimize legibility once you have an image set - you can also change the vertical positioning if desired  */
-.tagline {
+#tagline {
   color: #fff;
-  text-shadow: 0 0 10px #000;
+  text-shadow: 0 0 5px #1E618D;
+}
+
+#logo {
+  height: 400px;
+  background: url(../images/logo240x400.png) center center no-repeat;
+  background-size: contain;
 }
 
 footer {

@@ -13,24 +13,26 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#about">About</a></li>
-                <li><a href="#imprint">Imprint</a></li>
+                <li>{{#link-to 'about'}}About{{/link-to}}</li>
+                <li>{{#link-to 'imprint'}}Imprint{{/link-to}}</li>
+                <li>{{#link-to 'disclaimer'}}Disclaimer{{/link-to}}</li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
 </nav>
 
-<div class="header">
+<div id="header">
 
     <div class="container">
 
-        <div class="row" id="header">
+        <div class="row">
             <div class="col-lg-8">
-                <!-- The background image is set in the custom CSS -->
-                <h1 class="tagline">Delegate your restaurant selection!</h1>
+                <h1 id="tagline">Delegate your restaurant selection!</h1>
             </div>
             <div class="col-lg-4">
-                <img src="images/KCALTCD_concrete_small.png" class="img-responsive" />
+                <div id="logo">
+                    <!-- logo placed as background -->
+                </div>
             </div>
         </div>
 
