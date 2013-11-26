@@ -112,6 +112,9 @@ integration tests.
 * integration tests for "form" element (InputController) along to presentation of location, restaurant, error controller
 * implementation of current location detection (Geolocation API into LocationController)
 * implementation error handling
+* try to remove the [foursquare API - backend gateway script](env-scripts/foursquare.php) running on http://api.edinerguide.de/foursquare
+* add content for about, imprint, disclaimer
+* integration tests for presentation of about, imprint, disclaimer... content
 
 ## Miscellaneous
 
