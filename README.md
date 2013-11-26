@@ -92,13 +92,29 @@ Due to the following theses the business logic was placed in the classes shown b
 
 [Codeship](https://www.codeship.io/) is used for continuous integration and deployment which
 execute the tests run and the creation of the build package via [grunt](http://gruntjs.com/)
-the used as task runner. The creation of a tagged version is realised by a dirty shell script
+the used as task runner. The creation of a tagged version is realised by a [dirty shell script](env-scripts/codeship-deployment.sh)
 which also uses [GitHub Release API](http://developer.github.com/v3/repos/releases/) to archive
-the software. This script also deploy the software to a [GitHub Page)(http://pages.github.com/)
+the software. This script also deploy the software to a [GitHub Page](http://pages.github.com/)
 and sync the master branch with the current, deployed software.
+
+## Tests
+
+[Karma](http://karma-runner.github.io/) is used as a test runner which placed into the grunt
+task runner. [QUnit](http://qunitjs.com/) is the testing framework for the unit as well as
+integration tests.
+
+## ToDo
+
+* unit tests for InputController
+* unit tests for LocationController
+* unit tests for RestaurantController
+* unit tests for ErrorController
+* integration tests for "form" element (InputController) along to presentation of location, restaurant, error controller
+* implementation of current location detection (Geolocation API into LocationController)
+* implementation error handling
 
 ## Miscellaneous
 
-[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), 
-[Markdown-Task Lists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments)
+[GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown), 
+[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
