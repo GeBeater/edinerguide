@@ -7,6 +7,8 @@ A web based decision aid to find a restaurant close by a given location.
 
 ## Contribution
 
+### Virtual Development Environment
+
 In order to ease the life of developers and prevent that the local machine looks like a rubbish
 tip a Vagrantfile has beend added.
 
@@ -17,7 +19,7 @@ Using Vagrant to create a virtual development environment is quite simple by fol
 3. Install [Vagrant-Berkshelf Plugin](https://github.com/riotgames/vagrant-berkshelf)
 4. Install [Chef](http://www.opscode.com/chef/install/) (optional)
 
-#### Approved systems and package compounds
+#### Approved OS Versions and Package Compounds
 
 The virtual environment setup are tested on the systems listed below. All
 packages are downloaded from the source and not installed via system package manager.
@@ -31,7 +33,7 @@ packages are downloaded from the source and not installed via system package man
 |                  | vagrant_1.3.5_x86_64.deb                            |
 |                  | chef_11.8.0-1.ubuntu.12.04_amd64.deb                |
 
-#### Preparation of the virtual environment
+#### Preparation of the Virtual Environment
 
 ```bash
 cd /tmp
@@ -51,19 +53,52 @@ sudo ldconfig # TODO remove after WORKAROUND AND TODOS solved
 grunt server
 ```
 
-Now you can open [http://192.168.0.42:9000/](http://192.168.0.42:9000/) in your local browser. All
-modifications on the application source code will be taken in realtime without manual browser refreshing.
+Now you can open [http://192.168.0.42:9000/](http://192.168.0.42:9000/) in your local browser.
+All modifications on the application source code will be taken in realtime without manual
+browser refreshing.
 
 
-## Application structure
+## Application Architecture
 
-The primary application- respectively project structure is created with [YEOMAN](http://yeoman.io/)
-generator for ember Version 0.7.1 [generator-ember](https://github.com/yeoman/generator-ember).
+### Scaffold
 
+The application based on [ember.js](http://emberjs.com/) and the scaffold was created with
+[YEOMAN](http://yeoman.io/) using [generator-ember](https://github.com/yeoman/generator-ember)
+version 0.7.1.
 
+### Third Party APIs or Libraries
 
-## Miscellaneou remarks
+The application uses the [foursquare API](https://developer.foursquare.com/) to search restaurants
+in a circuit of given coordinates. Latter are determined by the HTML5 [Geolocation API](http://dev.w3.org/geo/api/spec-source.html)
+or [Google Maps JavaScript API v3](https://developers.google.com/maps/documentation/javascript/)
+which also used to provide a complete human-readable location.
 
-[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+### Business Logic
+
+Due to the following theses the business logic was placed in the classes shown below.
+
+> In Ember.js, templates get their properties from controllers, which decorate a model.
+[emberjs.com - guides - CONTROLLERS - A NOTE ON COUPLING](http://emberjs.com/guides/controllers/#toc_a-note-on-coupling)
+
+> Not all properties in your application need to be saved to the server. Any time you need to store
+> information only for the lifetime of this application run, you should store it on a controller.
+[emberjs.com - GUIDES - CONTROLLERS - STORING APPLICATION PROPERTIES](http://emberjs.com/guides/controllers/#toc_storing-application-properties)
+
+> Sometimes, ... needing to have some kind of connection between two controllers. ...
+> To be able to do this we define our ...Controller to need the ...Controller
+[[emberjs.com - GUIDES - CONTROLLERS - MANAGING DEPENDENCIES BETWEEN CONTROLLERS](http://emberjs.com/guides/controllers/dependencies-between-controllers/)
+
+## Continuous Integration and Deployment
+
+[Codeship](https://www.codeship.io/) is used for continuous integration and deployment which
+execute the tests run and the creation of the build package via [grunt](http://gruntjs.com/)
+the used as task runner. The creation of a tagged version is realised by a dirty shell script
+which also uses [GitHub Release API](http://developer.github.com/v3/repos/releases/) to archive
+the software. This script also deploy the software to a [GitHub Page)(http://pages.github.com/)
+and sync the master branch with the current, deployed software.
+
+## Miscellaneous
+
+[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), 
 [Markdown-Task Lists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments)
 
