@@ -53,10 +53,9 @@ sudo ldconfig # TODO remove after WORKAROUND AND TODOS solved
 grunt server
 ```
 
-Now you can open [http://192.168.0.42:9000/](http://192.168.0.42:9000/) in your local browser.
-All modifications on the application source code will be taken in realtime without manual
-browser refreshing.
-
+The application should now be accessible from the guest machine with a browser via
+[http://localhost:9000/](http://localhost:9000/). All changes on the application source
+code will be taken in soon without manual browser refreshing.
 
 ## Application Architecture
 
