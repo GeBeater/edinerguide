@@ -8,18 +8,12 @@ App.LocationController = Ember.Controller.extend({
     latitude: null,
     longitude: null,
 
-    google: null,
-    geocoder: null,
+    googleMaps: null,
 
     latlng: function() {
         return this.get('latitude') + ',' + this.get('longitude');
     }.property('latitude', 'longitude'),
 
-    init: function() {
-        this._super();
-        var google = this.get('google');
-        this.set('geocoder', new google.maps.Geocoder());
-    },
     needs: ['restaurant'],
     actions: {
         receiveAddress: function(address) {
@@ -27,14 +21,13 @@ App.LocationController = Ember.Controller.extend({
         }
     },
     getLocationByAddress: function(address) {
-        var controller = this;
-        var google = this.get('google');
-        var geocoder = this.get('geocoder');
-
-        this.get('geocoder').geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                controller.setLocation(results[0]);
-                controller.get('controllers.restaurant').send('receiveCoordinates', controller.get('latlng'));
+        var self = this;
+        var geocoder = this.get('googleMaps').getGeocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            console.log(status);
+            if (status == self.get('googleMaps').get('maps').GeocoderStatus.OK) {
+                self.setLocation(results[0]);
+                self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             } else {
                 // TODO error handling
             }
