@@ -17,8 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   # Define a forwarded port to allow access from the host machine to
-  # to the web-server running on the guest machine.
+  # the web-server running on the guest machine.
   config.vm.network "forwarded_port", guest: 9000, host: 9000
+  config.vm.network "forwarded_port", guest: 35729, host: 35729
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
