@@ -9,6 +9,64 @@ var App = window.App = Ember.Application.create();
 
 (function() {
 
+App.AmplifyObjectProxy = Ember.ObjectProxy.extend({
+
+    content: null,
+
+    global: null,
+
+    init: function() {
+        this._super();
+        this.set('content', this.get('global').amplify);
+        this.get('request').define( "foursquare", "ajax", {
+            url: "http://api.edinerguide.de/foursquare",
+            dataType: "json",
+            type: "GET"
+        });
+
+    }
+});
+
+})();
+
+(function() {
+
+App.GoogleMapsObjectProxy = Ember.ObjectProxy.extend({
+
+    content: null,
+
+    global: null,
+
+    key: null,
+
+    geocoder: null,
+
+    init: function() {
+        this._super();
+        var self = this;
+        this.global.bootstrapGoogleMapsApi = function() {
+            self.bootstrap();
+        }
+        jQuery.getScript('https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi', function( data, textStatus, jqxhr ) {
+            if ('success' !== textStatus) {
+                // TODO error handling
+            }
+        });
+    },
+    bootstrap: function() {
+       var global = this.get('global');
+       this.set('content', global.google);
+       var geocoder = new global.google.maps.Geocoder();
+       this.set('geocoder', geocoder);
+    }
+});
+
+
+
+})();
+
+(function() {
+
 App.AboutController = Ember.Controller.extend({
 
 });
@@ -83,18 +141,12 @@ App.LocationController = Ember.Controller.extend({
     latitude: null,
     longitude: null,
 
-    google: null,
-    geocoder: null,
+    googleMapsApi: null,
 
     latlng: function() {
         return this.get('latitude') + ',' + this.get('longitude');
     }.property('latitude', 'longitude'),
 
-    init: function() {
-        this._super();
-        var google = this.get('google');
-        this.set('geocoder', new google.maps.Geocoder());
-    },
     needs: ['restaurant'],
     actions: {
         receiveAddress: function(address) {
@@ -102,14 +154,12 @@ App.LocationController = Ember.Controller.extend({
         }
     },
     getLocationByAddress: function(address) {
-        var controller = this;
-        var google = this.get('google');
-        var geocoder = this.get('geocoder');
-
-        this.get('geocoder').geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                controller.setLocation(results[0]);
-                controller.get('controllers.restaurant').send('receiveCoordinates', controller.get('latlng'));
+        var self = this;
+        var geocoder = this.get('googleMapsApi').get('geocoder');
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == self.get('googleMapsApi').get('maps').GeocoderStatus.OK) {
+                self.setLocation(results[0]);
+                self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             } else {
                 // TODO error handling
             }
@@ -148,14 +198,6 @@ App.RestaurantController = Ember.Controller.extend({
 
     amplify: null,
 
-    init: function() {
-        this._super();
-        this.get('amplify').request.define( "foursquare", "ajax", {
-            url: "http://api.edinerguide.de/foursquare",
-            dataType: "json",
-            type: "GET"
-        });
-    },
     actions: {
         receiveCoordinates: function(latlnt) {
             this.findRestaurant(latlnt);
@@ -182,10 +224,10 @@ App.RestaurantController = Ember.Controller.extend({
         var query = { "ll": latlng, "query": "restaurant", "radius": 500, "explore": 1 };
         var controller = this;
         var amplify = this.get('amplify');
-        this.get('amplify').request( "foursquare", query, function(data) {
+        this.get('amplify').get('request')( "foursquare", query, function(data) {
             var restaurants = data.response.groups[0].items;
             var restaurant = restaurants[Math.floor(Math.random() * restaurants.length)].venue;
-            amplify.request( "foursquare", { id: restaurant.id }, function(data) {
+            amplify.get('request')( "foursquare", { id: restaurant.id }, function(data) {
                 controller.setRestaurant(data.response.venue);
             });
         });
@@ -224,11 +266,11 @@ App.Router.map(function () {
 
 (function() {
 
-App.register('amplify:main', amplify, { instantiate: false, singleton: true });
+App.register('amplify:main', App.AmplifyObjectProxy.create({ global: window }), { instantiate: false, singleton: true });
 App.inject('controller:restaurant', 'amplify', 'amplify:main');
 
-App.register('google:main', google, { instantiate: false, singleton: true });
-App.inject('controller:location', 'google', 'google:main');
+App.register('google:main', App.GoogleMapsObjectProxy.create({ global: window, key: 'AIzaSyDuJ0dnvYAHdnKTccoivRQzMfMFmrXw7SY' }), { instantiate: false, singleton: true });
+App.inject('controller:location', 'googleMapsApi', 'google:main');
 
 
 })();
