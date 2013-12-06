@@ -1,6 +1,6 @@
 /**
- * TODO remove due to this is an kind of experimental playground
- */
+* TODO remove due to this is an kind of experimental playground
+*/
 module("register and inject third party libraries", {
     setup: function() {
         Ember.run(App, App.advanceReadiness);

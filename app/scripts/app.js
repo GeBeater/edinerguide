@@ -9,8 +9,8 @@ require('scripts/routes/*');
 require('scripts/views/*');
 require('scripts/router');
 
-App.register('amplify:main', amplify, { instantiate: false, singleton: true });
+App.register('amplify:main', App.AmplifyObjectProxy.create({ global: window }), { instantiate: false, singleton: true });
 App.inject('controller:restaurant', 'amplify', 'amplify:main');
 
-App.register('google:main', App.GoogleMapsObjectProxy, { instantiate: true, singleton: true });
-App.inject('controller:location', 'googleMaps', 'google:main');
+App.register('google:main', App.GoogleMapsObjectProxy.create({ global: window, key: 'AIzaSyDuJ0dnvYAHdnKTccoivRQzMfMFmrXw7SY' }), { instantiate: false, singleton: true });
+App.inject('controller:location', 'googleMapsApi', 'google:main');
