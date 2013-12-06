@@ -12,14 +12,6 @@ App.RestaurantController = Ember.Controller.extend({
 
     amplify: null,
 
-    init: function() {
-        this._super();
-        this.get('amplify').request.define( "foursquare", "ajax", {
-            url: "http://api.edinerguide.de/foursquare",
-            dataType: "json",
-            type: "GET"
-        });
-    },
     actions: {
         receiveCoordinates: function(latlnt) {
             this.findRestaurant(latlnt);
@@ -46,10 +38,10 @@ App.RestaurantController = Ember.Controller.extend({
         var query = { "ll": latlng, "query": "restaurant", "radius": 500, "explore": 1 };
         var controller = this;
         var amplify = this.get('amplify');
-        this.get('amplify').request( "foursquare", query, function(data) {
+        this.get('amplify').get('request')( "foursquare", query, function(data) {
             var restaurants = data.response.groups[0].items;
             var restaurant = restaurants[Math.floor(Math.random() * restaurants.length)].venue;
-            amplify.request( "foursquare", { id: restaurant.id }, function(data) {
+            amplify.get('request')( "foursquare", { id: restaurant.id }, function(data) {
                 controller.setRestaurant(data.response.venue);
             });
         });

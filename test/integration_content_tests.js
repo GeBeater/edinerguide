@@ -1,9 +1,10 @@
 module("content integration tests", {
     setup: function() {
+        App.reset();
         Ember.run(App, App.advanceReadiness);
     },
     teardown: function() {
-        // App.reset(); // TODO failed injected libraries (google, amplify missing)
+        App.reset();
     }
 });
 
