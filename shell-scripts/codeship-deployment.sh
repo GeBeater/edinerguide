@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ###
 ### Deployment script for codeship
 ###
@@ -15,11 +17,13 @@ git config --global user.name "$CI_NAME - $CI_COMMITTER_NAME"
 RELEASE_VERSION=$(cat VERSION.txt)
 RELEASE_BINARY=$GH_REPO_NAME-$RELEASE_VERSION.zip
 ENTIRE_REPO_PATH=${HOME}/src/github.com/$GH_OWNER/${GH_REPO_NAME}_ENTIRE
+
 ##
 ## create a build
 ##
 grunt build
 BUILD_PATH=${HOME}/clone/dist
+
 ##
 ## deploy build
 ##
@@ -36,6 +40,7 @@ cp -rf ${BUILD_PATH}/* ${ENTIRE_REPO_PATH}/
 git add .
 git commit -a -m "[CI] deploy ${RELEASE_VERSION} via $CI_NAME --skip-ci" --allow-empty
 git push origin gh-pages --force
+
 ##
 ## update master branch (master have to represent the deployed code base (next branch))
 ##
@@ -48,6 +53,7 @@ git reset -q ${CI_COMMIT_ID}
 git commit --amend -m "$(git log -1 --pretty=%B) [CI modifikation] --skip-ci" --allow-empty
 git push origin :master
 git push origin master --force
+
 ##
 ## create release binary and archive
 ##

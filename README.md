@@ -40,16 +40,10 @@ cd /tmp
 git clone git@github.com:GeBeater/edinerguide.git
 cd edinerguide
 vagrant up
-
 vagrant ssh
 cd /vagrant
 npm install
-export PATH="./node_modules/.bin:$PATH"
-sudo apt-get install git # WORKAROUND
 bower install
-sudo apt-get install ruby1.9.1-full # WORKAROUND
-sudo gem install compass # TODO find a other solution
-sudo ldconfig # TODO remove after WORKAROUND AND TODOS solved
 grunt server
 ```
 
@@ -103,6 +97,18 @@ and sync the master branch with the current, deployed software.
 [Karma](http://karma-runner.github.io/) is used as a test runner which placed into the grunt
 task runner. [QUnit](http://qunitjs.com/) is the testing framework for the unit as well as
 integration tests.
+
+```bash
+cd /tmp
+git clone git@github.com:GeBeater/edinerguide.git
+cd edinerguide
+vagrant up
+vagrant ssh
+cd /vagrant
+npm install
+bower install
+grunt test
+```
 
 ## ToDo
 

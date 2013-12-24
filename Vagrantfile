@@ -10,11 +10,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.berkshelf.enabled = true
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
+  config.vm.box = "debian-7.3.0-amd64"
+
+  # Bootstrap virtual environment
+  config.vm.provision :shell, :path => "shell-scripts/bootstrap-virtual-env.sh"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.box_url = "http://vagrantboxes.gebeat.info/debian-7.3.0-amd64.box"
 
   # Define a forwarded port to allow access from the host machine to
   # the web-server running on the guest machine.
