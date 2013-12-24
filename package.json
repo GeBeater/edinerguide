@@ -4,7 +4,7 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "~1.2.7",
-    "karma": "~0.11",
+    "karma": "~0.10",
     "karma-qunit": "~0.1.1",
     "karma-phantomjs-launcher": "~0.1.0",
     "grunt-karma": "~0.7.1",
