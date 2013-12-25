@@ -9,6 +9,7 @@
 ### GH_OWNER=GeBeater
 ### GH_REPO_NAME=edinerguide
 ### GH_REPO_URI=git@github.com:GeBeater/edinerguide.git
+
 ###
 ### variables and config
 ###
@@ -65,4 +66,11 @@ chmod +x jq
 RELEASE_DATA="{\"tag_name\": \"$RELEASE_VERSION\", \"name\": \"release v${RELEASE_VERSION}\", \"target_commitish\": \"master\"}"
 RELEASE_API_URI="https://api.github.com/repos/$GH_OWNER/$GH_REPO_NAME/releases"
 RELEASE_ID=$(curl -s -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" -X POST --data "$RELEASE_DATA" $RELEASE_API_URI | ./jq '.id')
-curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/zip" --data-binary @$RELEASE_BINARY "https://uploads.github.com/repos/$GH_OWNER/$GH_REPO_NAME/releases/$RELEASE_ID/assets?name=$RELEASE_BINARY"
+
+if [ -n "$RELEASE_ID" ]; then
+    curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/zip" --data-binary @$RELEASE_BINARY "https://uploads.github.com/repos/$GH_OWNER/$GH_REPO_NAME/releases/$RELEASE_ID/assets?name=$RELEASE_BINARY"
+
+    exit 0
+else
+    exit 1
+fi
