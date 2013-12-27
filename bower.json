@@ -2,8 +2,7 @@
   "name": "edinerguide-bower-configuration",
   "version": "0.0.0",
   "dependencies": {
-    "ember": "1.0.0",
-    "ember-data-shim": "1.0.0-beta.3",
+    "ember": "1.2.0",
     "bootstrap-sass": "~3.0.0",
     "amplify": "~1.1.2"
   },

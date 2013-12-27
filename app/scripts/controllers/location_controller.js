@@ -1,5 +1,7 @@
 App.LocationController = Ember.Controller.extend({
 
+    isPublic: true,
+
     // TODO add awesome toggle widget with color if location detected otherwise hide or grey
     isEmpty: true,
 
@@ -43,6 +45,6 @@ App.LocationController = Ember.Controller.extend({
     setLocation: function(location) {
         this.set('address', location.formatted_address);
         this.set('latitude', location.geometry.location.lat());
-        this.set('longitude', location.geometry.location.lng());
+        this.set('longitude', location.geometry.location.lng())
     }
 });
