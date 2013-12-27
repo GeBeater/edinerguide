@@ -1,6 +1,6 @@
 (function() {
 
-var App = window.App = Ember.Application.create();
+var App = window.App = Ember.Application.create({});
 
 /* Order and include as you please. */
 
@@ -46,7 +46,7 @@ App.GoogleMapsObjectProxy = Ember.ObjectProxy.extend({
         var self = this;
         this.global.bootstrapGoogleMapsApi = function() {
             self.bootstrap();
-        }
+        };
         jQuery.getScript('https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi', function( data, textStatus, jqxhr ) {
             if ('success' !== textStatus) {
                 // TODO error handling
@@ -133,6 +133,8 @@ App.InputController = Ember.Controller.extend({
 
 App.LocationController = Ember.Controller.extend({
 
+    isPublic: true,
+
     // TODO add awesome toggle widget with color if location detected otherwise hide or grey
     isEmpty: true,
 
@@ -157,7 +159,7 @@ App.LocationController = Ember.Controller.extend({
         var self = this;
         var geocoder = this.get('googleMapsApi').get('geocoder');
         geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == self.get('googleMapsApi').get('maps').GeocoderStatus.OK) {
+            if (status === self.get('googleMapsApi').get('maps').GeocoderStatus.OK) {
                 self.setLocation(results[0]);
                 self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             } else {
@@ -233,14 +235,6 @@ App.RestaurantController = Ember.Controller.extend({
         });
     }
 });
-
-})();
-
-(function() {
-
-App.Store = DS.Store.extend();
-App.ApplicationAdapter = DS.FixtureAdapter;
-
 
 })();
 
