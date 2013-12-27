@@ -15,6 +15,7 @@
     "trailing": false,
     "smarttabs": true,
     "globals": {
+        "App": true,
         "Vagrant": true,
         "jQuery": true,
         "Ember": true,

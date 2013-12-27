@@ -13,7 +13,7 @@ App.GoogleMapsObjectProxy = Ember.ObjectProxy.extend({
         var self = this;
         this.global.bootstrapGoogleMapsApi = function() {
             self.bootstrap();
-        }
+        };
         jQuery.getScript('https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi', function( data, textStatus, jqxhr ) {
             if ('success' !== textStatus) {
                 // TODO error handling

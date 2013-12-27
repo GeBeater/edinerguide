@@ -24,7 +24,7 @@ App.LocationController = Ember.Controller.extend({
         var self = this;
         var geocoder = this.get('googleMapsApi').get('geocoder');
         geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == self.get('googleMapsApi').get('maps').GeocoderStatus.OK) {
+            if (status === self.get('googleMapsApi').get('maps').GeocoderStatus.OK) {
                 self.setLocation(results[0]);
                 self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             } else {
@@ -43,6 +43,6 @@ App.LocationController = Ember.Controller.extend({
     setLocation: function(location) {
         this.set('address', location.formatted_address);
         this.set('latitude', location.geometry.location.lat());
-        this.set('longitude', location.geometry.location.lng())
+        this.set('longitude', location.geometry.location.lng());
     }
 });
