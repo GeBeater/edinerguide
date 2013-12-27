@@ -1,10 +1,12 @@
 QUnit.module("controller location unit tests", {
     setup: function() {
-        //App.reset();
-        //Ember.run(function () { App.reset(); });
+        Ember.run(function() {
+            App.reset();
+            App.deferReadiness();
+        });
     },
     teardown: function() {
-        //App.reset();
+        App.reset();
     }
 });
 
