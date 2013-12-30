@@ -1,5 +1,8 @@
 App.RestaurantController = Ember.Controller.extend({
 
+    /**
+     * Used to toggle the restaurant (template) visibility.
+     */
     isEmpty: true,
 
     error: 'A restaurant could not be found.',
@@ -13,6 +16,7 @@ App.RestaurantController = Ember.Controller.extend({
 
     amplify: null,
 
+    needs: ['error'],
     actions: {
         receiveCoordinates: function(latlng) {
             this.findRestaurant(latlng);
@@ -74,8 +78,6 @@ App.RestaurantController = Ember.Controller.extend({
         });
     },
     /**
-     * // TODO display error message in user interface
-     *
      * Fetch a random restaurant from foursquare API based on given latlng.
      *
      * @param latlng comma separated latitude and longitude
@@ -94,7 +96,7 @@ App.RestaurantController = Ember.Controller.extend({
                 self.setRestaurant(restaurantJson.response.venue);
                 self.set('isEmpty', false);
         }).fail(function(error) {
-                console.log(error);
+                self.get('controllers.error').send('receiveError', error);
                 self.set('isEmpty', true);
         });
     }
