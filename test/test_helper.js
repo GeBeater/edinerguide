@@ -13,13 +13,21 @@ var testing = function(){
     return helper;
 };
 
+// registered test helper will be injected when App.injectTestHelpers is called
+
 Ember.Test.registerHelper('path', function() {
     return testing().path();
 });
 
-// TODO checke whether registerAsyncHelper is required
+// TODO check whether registerAsyncHelper is required
 Ember.Test.registerHelper('getLocationController', function() {
     return testing().controller('location');
+});
+
+// TODO check whether this helper is required for integration tests
+// adapted from Ember.Test source code
+Ember.Test.registerHelper('boot', function(app) {
+    Ember.run(app, app.advanceReadiness);
 });
 
 // move app to an element on the page in order to see the app running inside the runner
