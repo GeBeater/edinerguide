@@ -12,6 +12,5 @@ App.AmplifyObjectProxy = Ember.ObjectProxy.extend({
             dataType: "json",
             type: "GET"
         });
-
     }
 });

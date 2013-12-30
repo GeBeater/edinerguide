@@ -1,3 +1,4 @@
+{{#unless isEmpty}}
 <h2>You eat here!</h2>
 <p>{{category}}</p>
 <address>
@@ -10,3 +11,4 @@
     <abbr title="Phone">P:</abbr> {{contact.phone}}<br>
     <abbr title="Website">W:</abbr> <a {{bindAttr href='url'}} target="_blank">{{url}}</a>
 </address>
+{{/unless}}
