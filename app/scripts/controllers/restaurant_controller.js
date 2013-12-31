@@ -45,8 +45,8 @@ App.RestaurantController = Ember.Controller.extend({
         return new Ember.RSVP.Promise(function(resolve, reject){
             var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
             amplifyProxy.get('request')("foursquare", query, function(data) {
-                if((null === data) || (undefined === data.meta.code)
-                    || (200 !== data.meta.code) || (data.response.totalResults < 1)) {
+                if((null === data) || (undefined === data.meta.code) ||
+                    (200 !== data.meta.code) || (data.response.totalResults < 1)) {
                     // reject
                     reject(error);
                 } else {
@@ -84,7 +84,7 @@ App.RestaurantController = Ember.Controller.extend({
      */
     findRestaurant: function(latlng) {
         var self = this;
-        var amplify = this.get('amplify')
+        var amplify = this.get('amplify');
         var errorMsg = this.get('error');
         this.fetchRestaurants(latlng, amplify, errorMsg).then(function(restaurantsJson) {
                 // use a random restaurant item from the first group

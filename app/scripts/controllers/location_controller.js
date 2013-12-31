@@ -45,6 +45,6 @@ App.LocationController = Ember.Controller.extend({
     setLocation: function(location) {
         this.set('address', location.formatted_address);
         this.set('latitude', location.geometry.location.lat());
-        this.set('longitude', location.geometry.location.lng())
+        this.set('longitude', location.geometry.location.lng());
     }
 });
