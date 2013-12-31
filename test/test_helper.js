@@ -1,3 +1,8 @@
+Ember.Container.prototype.stub = function(fullName, instance) {
+    instance.destroy = instance.destroy || function() {};
+    this.cache.dict[fullName] = instance;
+};
+
 var testing = function(){
     var helper = {
         container: function(){
@@ -14,6 +19,9 @@ var testing = function(){
 };
 
 // registered test helper will be injected when App.injectTestHelpers is called
+Ember.Test.registerHelper('container', function() {
+    return testing().container();
+});
 
 Ember.Test.registerHelper('path', function() {
     return testing().path();
@@ -22,12 +30,6 @@ Ember.Test.registerHelper('path', function() {
 // TODO check whether registerAsyncHelper is required
 Ember.Test.registerHelper('getLocationController', function() {
     return testing().controller('location');
-});
-
-// TODO check whether this helper is required for integration tests
-// adapted from Ember.Test source code
-Ember.Test.registerHelper('boot', function(app) {
-    Ember.run(app, app.advanceReadiness);
 });
 
 // move app to an element on the page in order to see the app running inside the runner
