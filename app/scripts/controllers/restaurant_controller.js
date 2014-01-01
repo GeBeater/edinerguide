@@ -42,19 +42,19 @@ App.RestaurantController = Ember.Controller.extend({
      * @returns {Ember.RSVP.Promise}
      */
     fetchRestaurants: function(latlng, amplifyProxy, error) {
-        return new Ember.RSVP.Promise(function(resolve, reject){
-            var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
-            amplifyProxy.get('request')("foursquare", query, function(data) {
-                if((null === data) || (undefined === data.meta.code) ||
-                    (200 !== data.meta.code) || (data.response.totalResults < 1)) {
-                    // reject
-                    reject(error);
-                } else {
-                    // succeed
-                    resolve(data);
-                }
-            });
+        var deferred = Ember.RSVP.defer();
+        var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
+        amplifyProxy.get('request')("foursquare", query, function(data) {
+            if((null === data) || (undefined === data.meta.code) ||
+                (200 !== data.meta.code) || (data.response.totalResults < 1)) {
+                // reject
+                deferred.reject(error);
+            } else {
+                // succeed
+                deferred.resolve(data);
+            }
         });
+        return deferred.promise;
     },
     /**
      * Call the foursquare API proxy to fetch one restaurant specified by id.
