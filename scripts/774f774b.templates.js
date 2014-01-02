@@ -49,11 +49,16 @@ function program5(depth0,data) {
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
   stack2 = ((stack1 = helpers['link-to'] || depth0['link-to']),stack1 ? stack1.call(depth0, "disclaimer", options) : helperMissing.call(depth0, "link-to", "disclaimer", options));
   if(stack2 || stack2 === 0) { data.buffer.push(stack2); }
-  data.buffer.push("</li>\n            </ul>\n        </div><!-- /.navbar-collapse -->\n    </div><!-- /.container -->\n</nav>\n\n<div id=\"header\">\n\n    <div class=\"container\">\n\n        <div class=\"row\">\n            <div class=\"col-lg-8\">\n                <h1 id=\"tagline\">Delegate your restaurant selection!</h1>\n            </div>\n            <div class=\"col-lg-4\">\n                <div id=\"logo\">\n                    <!-- logo placed as background -->\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n\n<div class=\"container\">\n\n    <hr>\n\n    ");
+  data.buffer.push("</li>\n            </ul>\n        </div><!-- /.navbar-collapse -->\n    </div><!-- /.container -->\n</nav>\n\n<div id=\"header\">\n\n    <div class=\"container\">\n\n        <div class=\"row\">\n            <div class=\"col-lg-8\">\n                <h1 id=\"tagline\">Delegate your restaurant selection!</h1>\n                ");
+  hashTypes = {};
+  hashContexts = {};
+  options = {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
+  data.buffer.push(escapeExpression(((stack1 = helpers.render || depth0.render),stack1 ? stack1.call(depth0, "error", options) : helperMissing.call(depth0, "render", "error", options))));
+  data.buffer.push("\n            </div>\n            <div class=\"col-lg-4\">\n                <div id=\"logo\">\n                    <!-- logo placed as background -->\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n\n<div class=\"container\">\n\n    <hr>\n\n    ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "outlet", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n\n    <hr>\n\n    <footer>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <p>Copyright &copy; Andreas, André and Bernd 2013</p>\n            </div>\n        </div>\n    </footer>\n\n</div>");
+  data.buffer.push("\n\n    <hr>\n\n    <footer>\n        <div class=\"row\">\n            <div class=\"col-lg-12\">\n                <p>Copyright &copy; Bernd Hoffmann</p>\n            </div>\n        </div>\n    </footer>\n\n</div>");
   return buffer;
   
 });
@@ -71,10 +76,24 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["error"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '';
+  var stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
-
+function program1(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\n<div class=\"alert alert-danger text-center\">");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "error", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("</div>\n");
   return buffer;
+  }
+
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers.unless.call(depth0, "isEmpty", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
   
 });
 
@@ -84,7 +103,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <h2>Imprint</h2>\n        <p>Coming soon!</p>\n    </div>\n</div>");
+  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <h2>Imprint</h2>\n        <p>According to § 5 Telemediengesetz (TMG):</p>\n        <p>Bernd Hoffmann</p>\n        <p>Geisbergblick 1</p>\n        <p>96123 Litzendorf</p>\n        <p>Germany</p>\n        <br>\n        <p>Chief Content Officer according to § 55 Abs. 2 RStV:</p>\n        <p>as stated above</p>\n    </div>\n</div>");
   
 });
 
@@ -94,12 +113,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, hashTypes, hashContexts, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-12\">\n        ");
-  hashTypes = {};
-  hashContexts = {};
-  options = {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
-  data.buffer.push(escapeExpression(((stack1 = helpers.render || depth0.render),stack1 ? stack1.call(depth0, "error", options) : helperMissing.call(depth0, "render", "error", options))));
-  data.buffer.push("\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-lg-4 col-sm-4\">\n        ");
+  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-4 col-sm-4\">\n        ");
   hashTypes = {};
   hashContexts = {};
   options = {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data};
@@ -146,11 +160,11 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     'classNames': ("form-control"),
     'placeholder': ("Enter a city or zipcode")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n    </div>\n    <a ");
+  data.buffer.push("\n    </div>\n    <!-- <a ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "detectLocation", {hash:{},contexts:[depth0],types:["STRING"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" role=\"button\" class=\"btn btn-default\" disabled=\"disabled\">use current location</a>\n    <button type=\"button\" class=\"btn btn-default\" disabled=\"disabled\">reset</button>\n    <button type=\"submit\" class=\"btn btn-default\">submit</button>\n</form>");
+  data.buffer.push(" role=\"button\" class=\"btn btn-default\">detect current location</a> -->\n    <button type=\"submit\" class=\"btn btn-default\">submit</button>\n</form>");
   return buffer;
   
 });
@@ -158,33 +172,36 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["location"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+  var stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
-
-  data.buffer.push("<h2>You are here!</h2>\n<p>");
+function program1(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\n<h2>You are here!</h2>\n<p>");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "address", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</p>\n<p>latitude: ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "latitude", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</p>\n<p>longitude: ");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "longitude", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</p>");
+  data.buffer.push("</p>\n");
   return buffer;
+  }
+
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers.unless.call(depth0, "isEmpty", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
   
 });
 
 Ember.TEMPLATES["restaurant"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+  var stack1, hashTypes, hashContexts, escapeExpression=this.escapeExpression, self=this;
 
-
-  data.buffer.push("<h2>You eat here!</h2>\n<p>");
+function program1(depth0,data) {
+  
+  var buffer = '', hashTypes, hashContexts;
+  data.buffer.push("\n<h2>You eat here!</h2>\n<p>");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "category", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -222,7 +239,14 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "url", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("</a>\n</address>");
+  data.buffer.push("</a>\n</address>\n");
   return buffer;
+  }
+
+  hashTypes = {};
+  hashContexts = {};
+  stack1 = helpers.unless.call(depth0, "isEmpty", {hash:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
   
 });
