@@ -34,6 +34,24 @@ App.RestaurantController = Ember.Controller.extend({
         this.set('category', restaurant.categories[0].name);
     },
     /**
+     * Callback function which used to process the fetchRestaurants response.
+     *
+     * @param data
+     * @param deferred
+     * @param error
+     * @private
+     */
+    _fetchRestaurantsCb: function(data, deferred, error) {
+        if((null === data) || (undefined === data.meta.code) ||
+            (200 !== data.meta.code) || (data.response.totalResults < 1)) {
+            // reject
+            deferred.reject(error);
+        } else {
+            // succeed
+            deferred.resolve(data);
+        }
+    },
+    /**
      * Call the foursquare API proxy to fetch some restaurants by given latlng.
      *
      * @param latlng
@@ -44,15 +62,9 @@ App.RestaurantController = Ember.Controller.extend({
     fetchRestaurants: function(latlng, amplifyProxy, error) {
         var deferred = Ember.RSVP.defer();
         var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
+        var self = this;
         amplifyProxy.get('request')("foursquare", query, function(data) {
-            if((null === data) || (undefined === data.meta.code) ||
-                (200 !== data.meta.code) || (data.response.totalResults < 1)) {
-                // reject
-                deferred.reject(error);
-            } else {
-                // succeed
-                deferred.resolve(data);
-            }
+            self._fetchRestaurantsCb(data, deferred, error);
         });
         return deferred.promise;
     },
