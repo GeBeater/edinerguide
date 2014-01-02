@@ -41,8 +41,8 @@ App.RestaurantController = Ember.Controller.extend({
      * @param error
      * @private
      */
-    _fetchRestaurantsCb: function(data, deferred, error) {
-        if((null === data) || (undefined === data.meta.code) ||
+    _fetchRestaurantsCallback: function(data, deferred, error) {
+        if((null === data) || (undefined === data.meta) || (undefined === data.meta.code) ||
             (200 !== data.meta.code) || (data.response.totalResults < 1)) {
             // reject
             deferred.reject(error);
@@ -63,8 +63,8 @@ App.RestaurantController = Ember.Controller.extend({
         var deferred = Ember.RSVP.defer();
         var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
         var self = this;
-        amplifyProxy.get('request')("foursquare", query, function(data) {
-            self._fetchRestaurantsCb(data, deferred, error);
+        amplifyProxy.get('request')('foursquare', query, function(data) {
+            self._fetchRestaurantsCallback(data, deferred, error);
         });
         return deferred.promise;
     },
@@ -78,7 +78,7 @@ App.RestaurantController = Ember.Controller.extend({
      */
     fetchRestaurant: function(id, amplifyProxy, error) {
         return new Ember.RSVP.Promise(function(resolve, reject){
-            amplifyProxy.get('request')("foursquare", { id: id }, function(data) {
+            amplifyProxy.get('request')('foursquare', { id: id }, function(data) {
                 if((null === data) || (undefined === data.meta.code) || (200 !== data.meta.code)) {
                     // reject
                     reject("blablabla");
