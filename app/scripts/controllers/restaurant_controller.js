@@ -81,7 +81,7 @@ App.RestaurantController = Ember.Controller.extend({
             amplifyProxy.get('request')('foursquare', { id: id }, function(data) {
                 if((null === data) || (undefined === data.meta.code) || (200 !== data.meta.code)) {
                     // reject
-                    reject("blablabla");
+                    reject(error);
                 } else {
                     // succeed
                     resolve(data);
