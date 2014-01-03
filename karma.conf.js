@@ -13,6 +13,9 @@ module.exports = function(config) {
             //"app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "app/bower_components/amplify/lib/amplify.js",
 
+            "app/scripts/app.js",
+            "app/scripts/**/*.js",
+
             "node_modules/qunit-parameterize/qunit-parameterize.js",
 
             ".tmp/scripts/combined-scripts.js",
@@ -53,7 +56,21 @@ module.exports = function(config) {
         plugins: [
             'karma-qunit',
             'karma-sinon',
-            'karma-phantomjs-launcher'
-        ]
+            'karma-phantomjs-launcher',
+            'karma-coverage'
+        ],
+
+        reporters: ['progress', 'coverage'],
+
+        preprocessors:  {
+            //'**/app/scripts/controllers/**/*.js': 'coverage'
+            'app/scripts/**/*.js': 'coverage'
+        },
+
+        coverageReporter: {
+            type : 'html',
+            dir : 'coverage/'
+        }
+
     });
 };
