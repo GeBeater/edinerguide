@@ -14,10 +14,16 @@ App.GoogleMapsObjectProxy = Ember.ObjectProxy.extend({
         this.global.bootstrapGoogleMapsApi = function() {
             self.bootstrap();
         };
-        jQuery.getScript('https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi', function( data, textStatus, jqxhr ) {
-            if ('success' !== textStatus) {
-                // TODO error handling
-            }
+        Ember.$.ajax({
+           url: 'https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi',
+           dataType: 'script',
+           success: function(data, textStatus, jqxhr) {
+//               console.log( data ); // Data returned
+//               console.log( textStatus ); // Success
+//               console.log( jqxhr.status ); // 200
+//               console.log( "Load was performed." );
+           }
+
         });
     },
     bootstrap: function() {

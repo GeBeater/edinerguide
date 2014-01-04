@@ -14,7 +14,9 @@ module.exports = function(config) {
             "app/bower_components/amplify/lib/amplify.js",
 
             <!-- Developer tools dependencies -->
+            "app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "node_modules/qunit-parameterize/qunit-parameterize.js",
+
 
             <!-- Application init -->
             ".tmp/scripts/init-scripts.js",
