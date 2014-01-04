@@ -4,12 +4,6 @@ QUnit.module('controller restaurant unit tests: ', {
             App.reset();
             App.deferReadiness();
         });
-    },
-    teardown: function() {
-        Ember.run(function() {
-            App.reset();
-            App.deferReadiness();
-        });
     }
 });
 
@@ -26,15 +20,16 @@ QUnit.test('fetchRestaurants in case of success', function() {
         content: amplify
     });
 
-    sinon.stub(Ember.RSVP, 'defer', function() {
+    var objectUnderTest = getRestaurantController();
+
+    sinon.stub(objectUnderTest, '_createDeferred', function() {
         return {
             promise: 42,
             resolve: function() {}
         }
     });
 
-    var controller = getRestaurantController();
-    var actualPromise = controller.fetchRestaurants(LATLNG, amplifyProxy, "any error message");
+    var actualPromise = objectUnderTest.fetchRestaurants(LATLNG, amplifyProxy, "any error message");
 
     QUnit.equal(actualPromise, 42, "the promise does not provide the expected value");
 
@@ -42,6 +37,7 @@ QUnit.test('fetchRestaurants in case of success', function() {
 });
 
 QUnit.test('_fetchRestaurantsCallback in case of successful response data', function() {
+
 
     var ERROR = 'any error message';
 
@@ -55,8 +51,8 @@ QUnit.test('_fetchRestaurantsCallback in case of successful response data', func
         reject: reject
     }
 
-    var controller = getRestaurantController();
-    controller._fetchRestaurantsCallback(
+    var objectUnderTest = getRestaurantController();
+    objectUnderTest._fetchRestaurantsCallback(
         data,
         deferred,
         ERROR
@@ -74,7 +70,8 @@ QUnit
         { meta: { code: 200 }, response: { totalResults: 0 } },
         { meta: { code: 500 } },
         {}
-    ]).test('_fetchRestaurantsCallback in case of failing response data', function(data) {
+    ])
+    .test('_fetchRestaurantsCallback in case of failing response data', function(data) {
 
     var ERROR = 'any error message';
 
@@ -86,8 +83,8 @@ QUnit
         reject: reject
     }
 
-    var controller = getRestaurantController();
-    controller._fetchRestaurantsCallback(
+    var objectUnderTest = getRestaurantController();
+    objectUnderTest._fetchRestaurantsCallback(
         data,
         deferred,
         ERROR

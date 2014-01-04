@@ -34,6 +34,17 @@ App.RestaurantController = Ember.Controller.extend({
         this.set('category', restaurant.categories[0].name);
     },
     /**
+     * Creates a Promise object.
+     *
+     * @see https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/defer.js
+     *
+     * @returns {*|Promise|Number|number|defer|u.defer}
+     * @private
+     */
+    _createDeferred: function() {
+        return Ember.RSVP.defer();
+    },
+    /**
      * Callback function which used to process the fetchRestaurants response.
      *
      * @param data
@@ -60,13 +71,31 @@ App.RestaurantController = Ember.Controller.extend({
      * @returns {Ember.RSVP.Promise}
      */
     fetchRestaurants: function(latlng, amplifyProxy, error) {
-        var deferred = Ember.RSVP.defer();
+        var deferred = this._createDeferred();
         var query = { "ll": latlng, "query": "restaurant", "radius": 800, "explore": 1 };
         var self = this;
         amplifyProxy.get('request')('foursquare', query, function(data) {
             self._fetchRestaurantsCallback(data, deferred, error);
         });
         return deferred.promise;
+    },
+    /**
+     * Callback function which used to process the fetchRestaurant response.
+     *
+     * @param data
+     * @param deferred
+     * @param error
+     * @private
+     */
+    _fetchRestaurantCallback: function(data, deferred, error) {
+        if((null === data) || (undefined === data.meta) || (undefined === data.meta.code) ||
+            (200 !== data.meta.code)) {
+            // reject
+            deferred.reject(error);
+        } else {
+            // succeed
+            deferred.resolve(data);
+        }
     },
     /**
      * Call the foursquare API proxy to fetch one restaurant specified by id.
@@ -77,17 +106,12 @@ App.RestaurantController = Ember.Controller.extend({
      * @returns {Ember.RSVP.Promise}
      */
     fetchRestaurant: function(id, amplifyProxy, error) {
-        return new Ember.RSVP.Promise(function(resolve, reject){
-            amplifyProxy.get('request')('foursquare', { id: id }, function(data) {
-                if((null === data) || (undefined === data.meta.code) || (200 !== data.meta.code)) {
-                    // reject
-                    reject(error);
-                } else {
-                    // succeed
-                    resolve(data);
-                }
-            });
+        var deferred = this._createDeferred();
+        var self = this;
+        amplifyProxy.get('request')('foursquare', { id: id }, function(data) {
+            self._fetchRestaurantCallback(data, deferred, error);
         });
+        return deferred.promise;
     },
     /**
      * Fetch a random restaurant from foursquare API based on given latlng.
