@@ -20,6 +20,9 @@
         "jQuery": true,
         "Ember": true,
         "Handlebars": true,
-        "DS": true
+        "DS": true,
+        "QUnit": true,
+        "sinon": true,
+        "amplify": true
     }
 }
