@@ -14,7 +14,6 @@ App.RestaurantController = Ember.Controller.extend({
      */
     ERROR: 'A restaurant could not be found.',
 
-
     /**
      * The restaurant properties.
      *
