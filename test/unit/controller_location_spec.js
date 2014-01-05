@@ -152,3 +152,35 @@ QUnit
 
         QUnit.equal(resolve.callCount, 0, "the handler does unexpected set the resolve status");
     });
+
+QUnit.test('_geocode', function() {
+
+    var PROMISE = 42;
+    var STATUS = 'OK';
+    var REQUEST = { foo: 'bar' };
+
+    var deferredStub = sinon.stub(Ember.RSVP, 'defer', function() {
+        return {
+            promise: PROMISE
+        };
+    });
+
+    var geocodeSpy = sinon.spy();
+
+    var googleMapsApiGetStub = sinon.stub();
+    googleMapsApiGetStub.withArgs('geocoder').returns({ geocode: geocodeSpy });
+    googleMapsApiGetStub.withArgs('maps').returns({ GeocoderStatus: { OK: STATUS}});
+
+    var objectUnderTest = getLocationController();
+
+    var objectUnderTestGetStub = sinon.stub(objectUnderTest, 'get');
+    objectUnderTestGetStub.withArgs('googleMapsApi').returns({ get: googleMapsApiGetStub});
+
+    var actualPromise = objectUnderTest._geocode(REQUEST, null);
+    deferredStub.restore();
+    objectUnderTestGetStub.restore();
+
+    QUnit.equal(actualPromise, PROMISE, 'does not return the expected promise');
+    QUnit.equal(geocodeSpy.calledOnce, true, 'the geocode operation was not called');
+    QUnit.equal(geocodeSpy.calledWith(REQUEST), true, 'the request is not forward correctly');
+});

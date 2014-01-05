@@ -269,5 +269,5 @@ QUnit.test('findRestaurant (without callback functionality)', function() {
 
     objectUnderTest.findRestaurant(LATLNG);
 
-    QUnit.equal(stub.calledWith(LATLNG, amplify, error), true, 'the method does not forwared the expected params');
+    QUnit.equal(stub.calledWith(LATLNG, amplify, error), true, 'the method does not forward the expected params');
 });
