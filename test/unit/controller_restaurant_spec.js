@@ -251,7 +251,7 @@ QUnit.test('findRestaurant (without callback functionality)', function() {
     var objectUnderTest = getRestaurantController();
 
     var amplify = objectUnderTest.get('amplify');
-    var error = objectUnderTest.get('error');
+    var error = objectUnderTest.get('ERROR');
 
     var stub = sinon.stub(objectUnderTest, 'fetchRestaurants', function() {
         return {

@@ -1,12 +1,25 @@
 App.RestaurantController = Ember.Controller.extend({
 
     /**
-     * Used to toggle the restaurant (template) visibility.
+     * Property which used to toggle the restaurant (template) visibility.
+     *
+     * @type {boolean}
      */
     isEmpty: true,
 
-    error: 'A restaurant could not be found.',
+    /**
+     * The error message if no restaurant was found.
+     *
+     * @constant
+     */
+    ERROR: 'A restaurant could not be found.',
 
+
+    /**
+     * The restaurant properties.
+     *
+     * @see this.setRestaurant(restaurant)
+     */
     id: null,
     name: null,
     location: {"address": null, "postalCode": null, "city": null, "country": null},
@@ -14,14 +27,33 @@ App.RestaurantController = Ember.Controller.extend({
     contact: {"phone": null },
     category: null,
 
+    /**
+     * @see App.AmplifyObjectProxy
+     */
     amplify: null,
 
+    /**
+     * An array of other controller objects available inside instances of this controller.
+     *
+     * @see http://emberjs.com/api/classes/Ember.Controller.html#property_needs
+     */
     needs: ['error'],
+
+    /**
+     * Entry points to receive events from other components like templates or controller.
+     */
     actions: {
         receiveCoordinates: function(latlng) {
             this.findRestaurant(latlng);
         }
     },
+    /**
+     * Setter for restaurant properties.
+     *
+     * @see https://developer.foursquare.com/docs/responses/venue
+     *
+     * @param restaurant
+     */
     setRestaurant: function(restaurant) {
         this.set('id', restaurant.id);
         this.set('name', restaurant.name);
@@ -121,7 +153,7 @@ App.RestaurantController = Ember.Controller.extend({
     findRestaurant: function(latlng) {
         var self = this;
         var amplify = this.get('amplify');
-        var errorMsg = this.get('error');
+        var errorMsg = this.get('ERROR');
         this.fetchRestaurants(latlng, amplify, errorMsg).then(function(restaurantsJson) {
                 // use a random restaurant item from the first group
                 var restaurants = restaurantsJson.response.groups[0].items;
