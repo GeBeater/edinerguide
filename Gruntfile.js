@@ -311,6 +311,12 @@ module.exports = function (grunt) {
                 dest: '.tmp/scripts/combined-scripts.js'
             }
 
+        },
+        coveralls: {
+            options: {
+                debug: true,
+                coverage_dir: 'coverage'
+            }
         }
     });
 

@@ -13,13 +13,9 @@ module.exports = function(config) {
             "app/bower_components/ember/ember.js",
             "app/bower_components/amplify/lib/amplify.js",
 
-            "app/scripts/app.js",
-            "app/scripts/**/*.js",
-
             <!-- Developer tools dependencies -->
             "app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "node_modules/qunit-parameterize/qunit-parameterize.js",
-
 
             <!-- Application init -->
             ".tmp/scripts/init-scripts.js",
@@ -71,12 +67,11 @@ module.exports = function(config) {
         reporters: ['progress', 'coverage'],
 
         preprocessors:  {
-            //'**/app/scripts/controllers/**/*.js': 'coverage'
-            'app/scripts/**/*.js': 'coverage'
+            '.tmp/scripts/combined-scripts.js': 'coverage'
         },
 
         coverageReporter: {
-            type : 'html',
+            type : 'lcov',
             dir : 'coverage/'
         }
 
