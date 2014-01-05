@@ -55,9 +55,9 @@ code will be taken in soon without manual browser refreshing.
 
 ### Scaffold
 
-The application based on [ember.js](http://emberjs.com/) and the scaffold was created with
+The application based on [ember.js](http://emberjs.com/). The scaffold was created with
 [YEOMAN](http://yeoman.io/) using [generator-ember](https://github.com/yeoman/generator-ember)
-version 0.7.1.
+v 0.7.1.
 
 ### Third Party APIs or Libraries
 
@@ -71,7 +71,7 @@ which also used to provide a complete human-readable location. The HTML5
 
 [Codeship](https://www.codeship.io/) is used for continuous integration and deployment which
 execute the tests run and the creation of the build package via [grunt](http://gruntjs.com/)
-the used as task runner. The creation of a tagged version is realised by a [dirty shell script](env-scripts/codeship-deployment.sh)
+the used as task runner. The creation of a tagged version is realised by a [shell script](shell-scripts/codeship-deployment.sh)
 which also uses [GitHub Release API](http://developer.github.com/v3/repos/releases/) to archive
 the software. This script also deploy the software to a [GitHub Page](http://pages.github.com/)
 and sync the master branch with the current, deployed software.
