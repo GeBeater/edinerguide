@@ -9,6 +9,8 @@
     "karma-phantomjs-launcher": "~0.1.1",
     "karma-sinon": "~1.0.0",
     "qunit-parameterize": "~0.4",
+    "karma-coverage": "0.1.4",
+    "grunt-karma-coveralls": "2.3.0",
     "grunt-karma": "~0.7.2",
     "grunt-cli": "~0.1.6",
     "grunt": "~0.4.1",

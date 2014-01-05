@@ -17,7 +17,6 @@ module.exports = function(config) {
             "app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "node_modules/qunit-parameterize/qunit-parameterize.js",
 
-
             <!-- Application init -->
             ".tmp/scripts/init-scripts.js",
 
@@ -61,7 +60,20 @@ module.exports = function(config) {
         plugins: [
             'karma-qunit',
             'karma-sinon',
-            'karma-phantomjs-launcher'
-        ]
+            'karma-phantomjs-launcher',
+            'karma-coverage'
+        ],
+
+        reporters: ['progress', 'coverage'],
+
+        preprocessors:  {
+            '.tmp/scripts/combined-scripts.js': 'coverage'
+        },
+
+        coverageReporter: {
+            type : 'lcov',
+            dir : 'coverage/'
+        }
+
     });
 };
