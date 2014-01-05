@@ -17,7 +17,7 @@ Using Vagrant to create a virtual development environment is quite simple by fol
 1. Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 2. Install [Vagrant](http://downloads.vagrantup.com/)
 3. Install [Vagrant-Berkshelf Plugin](https://github.com/riotgames/vagrant-berkshelf)
-4. Install [Chef](http://www.opscode.com/chef/install/) (optional)
+4. Install [Chef](http://www.opscode.com/chef/install/)
 
 #### Approved OS Versions and Package Compounds
 
@@ -62,26 +62,10 @@ version 0.7.1.
 ### Third Party APIs or Libraries
 
 The application uses the [foursquare API](https://developer.foursquare.com/) to search restaurants
-in a circuit of given coordinates. Latter are determined by the HTML5 [Geolocation API](http://dev.w3.org/geo/api/spec-source.html)
-or [Google Maps JavaScript API v3](https://developers.google.com/maps/documentation/javascript/)
-which also used to provide a complete human-readable location.
-
-### Business Logic
-
-Due to the following theses the business logic was placed in the classes shown below.
-
-> In Ember.js, templates get their properties from controllers, which decorate a model.
-[emberjs.com - guides - CONTROLLERS - A NOTE ON COUPLING](http://emberjs.com/guides/controllers/#toc_a-note-on-coupling)
-
-> Not all properties in your application need to be saved to the server. Any time you need to store
-> information only for the lifetime of this application run, you should store it on a controller.
-[emberjs.com - GUIDES - CONTROLLERS - STORING APPLICATION PROPERTIES](http://emberjs.com/guides/controllers/#toc_storing-application-properties)
-
-> Sometimes, ... needing to have some kind of connection between two controllers. ...
-> To be able to do this we define our ...Controller to need the ...Controller
-[[emberjs.com - GUIDES - CONTROLLERS - MANAGING DEPENDENCIES BETWEEN CONTROLLERS](http://emberjs.com/guides/controllers/dependencies-between-controllers/)
-
-![](docs/diagrams/businesslogic800x500.png?raw=true)
+in a circuit of given coordinates. Latter are determined via
+[Google Maps JavaScript API v3](https://developers.google.com/maps/documentation/javascript/)
+which also used to provide a complete human-readable location. The HTML5
+[Geolocation API](http://dev.w3.org/geo/api/spec-source.html) to detect the users location coming soon.
 
 ## Continuous Integration and Deployment
 
@@ -96,7 +80,7 @@ and sync the master branch with the current, deployed software.
 
 [Karma](http://karma-runner.github.io/) is used as a test runner which placed into the grunt
 task runner. [QUnit](http://qunitjs.com/) is the testing framework for the unit as well as
-integration tests.
+integration tests. [Sinon.JS](http://sinonjs.org/) is used to create spies, stubs and mocks.
 
 ```bash
 cd /tmp
@@ -110,21 +94,7 @@ bower install
 grunt test
 ```
 
-## ToDo
+## License
 
-* unit tests for InputController
-* unit tests for LocationController
-* unit tests for RestaurantController
-* unit tests for ErrorController
-* integration tests for "form" element (InputController) along to presentation of location, restaurant, error controller
-* implementation of current location detection (Geolocation API into LocationController)
-* implementation error handling
-* try to remove the [foursquare API - backend gateway script](env-scripts/foursquare.php) running on http://api.edinerguide.de/foursquare
-* add content for about, imprint, disclaimer
-* integration tests for presentation of about, imprint, disclaimer... content
-
-## Miscellaneous
-
-[GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown), 
-[Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+MIT License
 
