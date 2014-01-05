@@ -1,4 +1,4 @@
-QUnit.module('imprint integration test', {
+QUnit.module('imprint integration tests', {
     setup: function() {
         Ember.run(function() {
             App.reset();

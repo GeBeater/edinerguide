@@ -1,4 +1,4 @@
-QUnit.module("Integration Tests", {
+QUnit.module('input location integration tests', {
     setup: function() {
         Ember.run(function() {
             App.reset();
@@ -7,34 +7,9 @@ QUnit.module("Integration Tests", {
     }
 });
 
-QUnit.test("first test", function() {
-
-    ok(true, 'something before app is initialized');
+QUnit.test('send form data and check presentation', function() {
 
     Ember.run(function() {
         App.advanceReadiness();
     });
-
-    visit("/imprint").then(function() {
-        var actualRows = find(".container").length;
-        QUnit.equal(actualRows, 3, 'the imprint page does not contain enought container elements');
-    });
-
-    ok(true, 'something after app is initialized');
-});
-
-QUnit.test("second test", function() {
-
-    ok(true, 'something before app is initialized');
-
-    Ember.run(function() {
-        App.advanceReadiness();
-    });
-
-    visit("/imprint").then(function() {
-        var actualRows = find(".container").length;
-        QUnit.equal(actualRows, 3, 'the imprint page does not contain enought container elements');
-    });
-
-    ok(true, 'something after app is initialized');
 });
