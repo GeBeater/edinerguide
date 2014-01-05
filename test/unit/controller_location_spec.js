@@ -178,9 +178,85 @@ QUnit.test('_geocode', function() {
 
     var actualPromise = objectUnderTest._geocode(REQUEST, null);
     deferredStub.restore();
-    objectUnderTestGetStub.restore();
+    objectUnderTestGetStub.restore(); // should not be required due to App.reset() !?
 
     QUnit.equal(actualPromise, PROMISE, 'does not return the expected promise');
     QUnit.equal(geocodeSpy.calledOnce, true, 'the geocode operation was not called');
     QUnit.equal(geocodeSpy.calledWith(REQUEST), true, 'the request is not forward correctly');
 });
+
+QUnit.test('fetchLocation (without callback functionality)', function() {
+
+    var REQUEST = { foo: 'bar' };
+
+    var objectUnderTest = getLocationController();
+
+    var geocodeReturnStub = sinon.stub();
+
+    geocodeReturnStub.returns({
+        then: function() {
+            return {
+                fail: function() {}
+            };
+        }
+    });
+
+    var error = objectUnderTest.get('ERROR');
+
+    var geocodeStub = sinon.stub(objectUnderTest, '_geocode', geocodeReturnStub );
+
+    objectUnderTest.fetchLocation(REQUEST);
+
+    geocodeStub.restore(); // should not be required due to App.reset() !?
+
+    QUnit.equal(geocodeStub.calledOnce, true, 'the method does not call the geocode operation');
+    QUnit.equal(geocodeStub.calledWith(REQUEST, error), true, 'the method does not forward the expected params');
+});
+
+QUnit
+    .cases([
+        // data provider for human readable addresses
+        { address: 'Drehbahn 47-48', expectedRequest: { 'address': 'Drehbahn 47-48' }},
+        { address: 'Schlossallee, Monopoly', expectedRequest: { 'address': 'Schlossallee, Monopoly' }},
+        { address: 'Bermuda Triangle', expectedRequest: { 'address': 'Bermuda Triangle' }}
+    ])
+    .test('getLocationByAddress', function(addresses) {
+
+        var objectUnderTest = getLocationController();
+
+        var fetchLocationStub = sinon.stub(objectUnderTest, 'fetchLocation');
+
+        objectUnderTest.getLocationByAddress(addresses.address);
+
+        QUnit.equal(fetchLocationStub.calledOnce, true, 'the method does not call the fetchLocation operation');
+        QUnit.equal(
+            fetchLocationStub.calledWith(addresses.expectedRequest),
+            true,
+            'the method does not forward the expected params'
+        );
+
+    });
+
+QUnit
+    .cases([
+        // data provider for geographic coordinates (latitude, longtitude)
+        { latitude: '49.89881', longtitude: '10.90276', expectedRequest: { 'latLng': '49.89881,10.90276' } },
+        { latitude: '53.55661', longtitude: '9.98583', expectedRequest: { 'latLng': '53.55661,9.98583' } },
+        { latitude: '48.13513', longtitude: '11.58198', expectedRequest: { 'latLng': '48.13513,11.58198' } }
+    ])
+    .test('getLocationByCoordinates', function(coordinates) {
+
+        var objectUnderTest = getLocationController();
+
+        var fetchLocationStub = sinon.stub(objectUnderTest, 'fetchLocation');
+
+        objectUnderTest.getLocationByCoordinates(coordinates.latitude, coordinates.longtitude);
+
+        QUnit.equal(fetchLocationStub.calledOnce, true, 'the method does not call the fetchLocation operation');
+        QUnit.equal(
+            fetchLocationStub.calledWith(coordinates.expectedRequest),
+            true,
+            'the method does not forward the expected params'
+        );
+
+    });
