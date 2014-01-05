@@ -6,3 +6,9 @@ google.maps.Geocoder = function() {
         return function() { }
     };
 };
+
+$.mockjax({
+    url: '*'
+});
+// TODO dirty hack due to mockjax does not prevent the actual ajax call
+$.ajax = function() {};

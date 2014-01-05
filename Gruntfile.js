@@ -133,7 +133,7 @@ module.exports = function (grunt) {
                 'Gruntfile.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
+                'test/{,*/}*.js'
             ]
         },
         compass: {
@@ -292,7 +292,16 @@ module.exports = function (grunt) {
             }
         },
         neuter: {
-            app: {
+            appInit: {
+                options: {
+                    filepathTransform: function (filepath) {
+                        return 'app/' + filepath;
+                    }
+                },
+                src: '<%= yeoman.app %>/scripts/initApp.js',
+                dest: '.tmp/scripts/init-scripts.js'
+            },
+            appCode: {
                 options: {
                     filepathTransform: function (filepath) {
                         return 'app/' + filepath;
@@ -301,6 +310,7 @@ module.exports = function (grunt) {
                 src: '<%= yeoman.app %>/scripts/app.js',
                 dest: '.tmp/scripts/combined-scripts.js'
             }
+
         }
     });
 
@@ -312,7 +322,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'concurrent:server',
-            'neuter:app',
+            'neuter',
             'connect:livereload',
             //'open',
             'watch'
@@ -323,7 +333,7 @@ module.exports = function (grunt) {
         'clean:server',
         'concurrent:test',
         'connect:test',
-        'neuter:app',
+        'neuter',
         'karma'
     ]);
 
@@ -331,8 +341,8 @@ module.exports = function (grunt) {
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
-        'neuter:app',
-        //'concat',
+        'neuter',
+        'concat',
         'cssmin',
         //'uglify',
         'copy',

@@ -7,29 +7,37 @@ module.exports = function(config) {
         basePath: '',
 
         files: [
+            <!-- Application dependencies -->
             "app/bower_components/jquery/jquery.min.js",
             "app/bower_components/handlebars/handlebars.js",
             "app/bower_components/ember/ember.js",
-            //"app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "app/bower_components/amplify/lib/amplify.js",
 
             "app/scripts/app.js",
             "app/scripts/**/*.js",
 
+            <!-- Developer tools dependencies -->
+            "app/bower_components/jquery-mockjax/jquery.mockjax.js",
             "node_modules/qunit-parameterize/qunit-parameterize.js",
 
-            ".tmp/scripts/combined-scripts.js",
-            ".tmp/scripts/compiled-templates.js",
+
+            <!-- Application init -->
+            ".tmp/scripts/init-scripts.js",
 
             <!-- Test Helper -->
             "test/google_maps_stub.js",
             "test/test_helper.js",
 
-            <!-- Unit tests -->
-            "test/unit/**/*_spec.js",
+            <!-- Application -->
+            ".tmp/scripts/combined-scripts.js",
+            ".tmp/scripts/compiled-templates.js",
 
             <!-- Integration tests -->
-            "test/integration/**/*_spec.js"
+            "test/integration/**/*_spec.js",
+
+            <!-- Unit tests -->
+            "test/unit/**/*_spec.js"
+
         ],
 
         // Level of logging. Possible values are:

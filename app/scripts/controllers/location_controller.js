@@ -1,27 +1,71 @@
 App.LocationController = Ember.Controller.extend({
 
-    // TODO add awesome toggle widget with color if location detected otherwise hide or grey
+    /**
+     * Property which used to toggle the restaurant (template) visibility.
+     *
+     * @type {boolean}
+     */
     isEmpty: true,
 
-    error: 'A valid location could not be determined.',
+    /**
+     * The error message if the given location could not determined.
+     *
+     * @constant
+     */
+    ERROR: 'A valid location could not be determined.',
 
-    address: null, // TODO replace formatted address string by multiple parts
+    /**
+     * The determined address in the format "street, zipcode city, country".
+     *
+     * @see this.setLocation(location)
+     * @type {string}
+     */
+    address: null,
 
+    /**
+     * The determined geographic coordinates.
+     *
+     * @see this.setLocation(location)
+     */
     latitude: null,
     longitude: null,
 
+    /**
+     * @see App.GoogleMapsObjectProxy
+     */
     googleMapsApi: null,
 
+    /**
+     * The latitude and longitude as computed property.
+     *
+     * To use in the same way as any normal, static property.
+     */
     latlng: function() {
         return this.get('latitude') + ',' + this.get('longitude');
     }.property('latitude', 'longitude'),
 
+    /**
+     * An array of other controller objects available inside instances of this controller.
+     *
+     * @see http://emberjs.com/api/classes/Ember.Controller.html#property_needs
+     */
     needs: ['restaurant', 'error'],
+
+    /**
+     * Entry points to receive events from other components like templates or controller.
+     */
     actions: {
         receiveAddress: function(address) {
             this.getLocationByAddress(address);
         }
     },
+    /**
+     * Setter for location properties.
+     *
+     * @see https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult
+     *
+     * @param location
+     */
     setLocation: function(location) {
         this.set('address', location.formatted_address);
         this.set('latitude', location.geometry.location.lat());
@@ -41,7 +85,7 @@ App.LocationController = Ember.Controller.extend({
         }
     },
     /**
-     * Geocode an address by given address or latlng
+     * Geocode an address by given address or latlng.
      *
      * @param request The GeocodeRequest object literal contains address or latlng field.
      * @private
@@ -63,7 +107,8 @@ App.LocationController = Ember.Controller.extend({
      */
     fetchLocation: function(request) {
         var self = this;
-        this._geocode(request, this.error).then(function(results) {
+        var errorMsg = this.get('ERROR');
+        this._geocode(request, errorMsg).then(function(results) {
             self.setLocation(results[0]);
             self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             self.set('isEmpty', false);
