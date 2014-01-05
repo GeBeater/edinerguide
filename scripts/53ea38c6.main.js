@@ -49,10 +49,16 @@ App.GoogleMapsObjectProxy = Ember.ObjectProxy.extend({
         this.global.bootstrapGoogleMapsApi = function() {
             self.bootstrap();
         };
-        jQuery.getScript('https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi', function( data, textStatus, jqxhr ) {
-            if ('success' !== textStatus) {
-                // TODO error handling
-            }
+        Ember.$.ajax({
+           url: 'https://maps.googleapis.com/maps/api/js?v=3&key=' + this.key + '&sensor=false&callback=bootstrapGoogleMapsApi',
+           dataType: 'script',
+           success: function(data, textStatus, jqxhr) {
+//               console.log( data ); // Data returned
+//               console.log( textStatus ); // Success
+//               console.log( jqxhr.status ); // 200
+//               console.log( "Load was performed." );
+           }
+
         });
     },
     bootstrap: function() {
@@ -128,18 +134,20 @@ App.IndexController = Ember.Controller.extend({
 
 App.InputController = Ember.Controller.extend({
 
-    latitude: null,
-    longitude: null,
-
+    /**
+     * An array of other controller objects available inside instances of this controller.
+     *
+     * @see http://emberjs.com/api/classes/Ember.Controller.html#property_needs
+     */
     needs: ['location', 'error'],
+
+    /**
+     * Entry points to receive events from other components like templates or controller.
+     */
     actions: {
         sendAddress: function(address) {
             this.get('controllers.error').send('resetError');
             this.get('controllers.location').send('receiveAddress', address);
-        },
-        detectLocation: function() {
-            // TODO implementation
-            // this.get('controllers.location').send('detectLocation');
         }
     }
 });
@@ -150,28 +158,72 @@ App.InputController = Ember.Controller.extend({
 
 App.LocationController = Ember.Controller.extend({
 
-    // TODO add awesome toggle widget with color if location detected otherwise hide or grey
+    /**
+     * Property which used to toggle the restaurant (template) visibility.
+     *
+     * @type {boolean}
+     */
     isEmpty: true,
 
-    error: 'A valid location could not be determined.',
+    /**
+     * The error message if the given location could not determined.
+     *
+     * @constant
+     */
+    ERROR: 'A valid location could not be determined.',
 
-    address: null, // TODO replace formatted address string by multiple parts
+    /**
+     * The determined address in the format "street, zipcode city, country".
+     *
+     * @see this.setLocation(location)
+     * @type {string}
+     */
+    address: null,
 
+    /**
+     * The determined geographic coordinates.
+     *
+     * @see this.setLocation(location)
+     */
     latitude: null,
     longitude: null,
 
+    /**
+     * @see App.GoogleMapsObjectProxy
+     */
     googleMapsApi: null,
 
+    /**
+     * The latitude and longitude as computed property.
+     *
+     * To use in the same way as any normal, static property.
+     */
     latlng: function() {
         return this.get('latitude') + ',' + this.get('longitude');
     }.property('latitude', 'longitude'),
 
+    /**
+     * An array of other controller objects available inside instances of this controller.
+     *
+     * @see http://emberjs.com/api/classes/Ember.Controller.html#property_needs
+     */
     needs: ['restaurant', 'error'],
+
+    /**
+     * Entry points to receive events from other components like templates or controller.
+     */
     actions: {
         receiveAddress: function(address) {
             this.getLocationByAddress(address);
         }
     },
+    /**
+     * Setter for location properties.
+     *
+     * @see https://developers.google.com/maps/documentation/javascript/reference#GeocoderResult
+     *
+     * @param location
+     */
     setLocation: function(location) {
         this.set('address', location.formatted_address);
         this.set('latitude', location.geometry.location.lat());
@@ -191,7 +243,7 @@ App.LocationController = Ember.Controller.extend({
         }
     },
     /**
-     * Geocode an address by given address or latlng
+     * Geocode an address by given address or latlng.
      *
      * @param request The GeocodeRequest object literal contains address or latlng field.
      * @private
@@ -213,7 +265,8 @@ App.LocationController = Ember.Controller.extend({
      */
     fetchLocation: function(request) {
         var self = this;
-        this._geocode(request, this.error).then(function(results) {
+        var errorMsg = this.get('ERROR');
+        this._geocode(request, errorMsg).then(function(results) {
             self.setLocation(results[0]);
             self.get('controllers.restaurant').send('receiveCoordinates', self.get('latlng'));
             self.set('isEmpty', false);
@@ -250,12 +303,24 @@ App.LocationController = Ember.Controller.extend({
 App.RestaurantController = Ember.Controller.extend({
 
     /**
-     * Used to toggle the restaurant (template) visibility.
+     * Property which used to toggle the restaurant (template) visibility.
+     *
+     * @type {boolean}
      */
     isEmpty: true,
 
-    error: 'A restaurant could not be found.',
+    /**
+     * The error message if no restaurant was found.
+     *
+     * @constant
+     */
+    ERROR: 'A restaurant could not be found.',
 
+    /**
+     * The restaurant properties.
+     *
+     * @see this.setRestaurant(restaurant)
+     */
     id: null,
     name: null,
     location: {"address": null, "postalCode": null, "city": null, "country": null},
@@ -263,14 +328,33 @@ App.RestaurantController = Ember.Controller.extend({
     contact: {"phone": null },
     category: null,
 
+    /**
+     * @see App.AmplifyObjectProxy
+     */
     amplify: null,
 
+    /**
+     * An array of other controller objects available inside instances of this controller.
+     *
+     * @see http://emberjs.com/api/classes/Ember.Controller.html#property_needs
+     */
     needs: ['error'],
+
+    /**
+     * Entry points to receive events from other components like templates or controller.
+     */
     actions: {
         receiveCoordinates: function(latlng) {
             this.findRestaurant(latlng);
         }
     },
+    /**
+     * Setter for restaurant properties.
+     *
+     * @see https://developer.foursquare.com/docs/responses/venue
+     *
+     * @param restaurant
+     */
     setRestaurant: function(restaurant) {
         this.set('id', restaurant.id);
         this.set('name', restaurant.name);
@@ -370,7 +454,7 @@ App.RestaurantController = Ember.Controller.extend({
     findRestaurant: function(latlng) {
         var self = this;
         var amplify = this.get('amplify');
-        var errorMsg = this.get('error');
+        var errorMsg = this.get('ERROR');
         this.fetchRestaurants(latlng, amplify, errorMsg).then(function(restaurantsJson) {
                 // use a random restaurant item from the first group
                 var restaurants = restaurantsJson.response.groups[0].items;
