@@ -5,6 +5,7 @@ A web based decision aid to find a restaurant close by a given location.
 
 ![CODESHIP status](https://www.codeship.io/projects/ea774840-2784-0131-e141-3a7953958826/status)
 
+[![Coverage Status](https://coveralls.io/repos/GeBeater/edinerguide/badge.png)](https://coveralls.io/r/GeBeater/edinerguide)
 [![Dependency Status](https://www.versioneye.com/user/projects/52c9c3e7ec1375d831000095/badge.png)](https://www.versioneye.com/user/projects/52c9c3e7ec1375d831000095)
 
 ## Contribution
