@@ -4,7 +4,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <h2>About</h2>\n        <p>Coming soon!</p>\n    </div>\n</div>");
+  data.buffer.push("<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <h2>About</h2>\n        <p>This project has the purpose to spare your decisional resources.</p>\n    </div>\n</div>");
   
 });
 
