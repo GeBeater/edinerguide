@@ -22,9 +22,9 @@ QUnit.test('check content', function() {
         );
 
         QUnit.equal(
-            find(".col-lg-12:first p:eq(0):contains('Coming soon!')").length,
+            find(".col-lg-12:first p:eq(0):contains('This project has the purpose to spare your decisional resources.')").length,
             1,
-            '"Coming soon" remark not found'
+            'expected content not found'
         );
 
     });
