@@ -79,6 +79,8 @@ which also uses [GitHub Release API](http://developer.github.com/v3/repos/releas
 the software. This script also deploy the software to a [GitHub Page](http://pages.github.com/)
 and sync the master branch with the current, deployed software.
 
+[![CI and CD in practice](http://img.youtube.com/vi/UD1u75kgngw/0.jpg)](http://www.youtube.com/watch?v=UD1u75kgngw)
+
 ## Tests
 
 [Karma](http://karma-runner.github.io/) is used as a test runner which placed into the grunt
